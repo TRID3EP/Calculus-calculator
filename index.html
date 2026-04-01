@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculus - Visualized</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.1/math.min.js"></script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Calculus, Visualized</h1>
+    <p>Input function → Output function, made visible</p>
+  </header>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="diff">∂ Differentiation</button>
+    <button class="tab" data-tab="int">∫ Integration</button>
+  </div>
+
+  <div class="section active" id="diff">
+    <div class="two-col">
+      <div class="canvas-wrap">
+        <div class="canvas-label">f(x) - input function</div>
+        <canvas id="diffCanvas"></canvas>
+        <div class="canvas-divider"></div>
+        <div class="canvas-label" style="color:var(--deriv-color)">f′(x) - output (derivative)</div>
+        <div id="diffExprOut" class="expr-display" style="color:#fafafb;background:rgba(167,139,250,0.07)"></div>
+        <canvas id="diffOutCanvas"></canvas>
+        <div class="legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#fff"></div>f(x)</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--diff-color)"></div>Tangent</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>Secant</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#a78bfa"></div>f′(x)</div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="ctrl-section">
+          <h3>Custom Function</h3>
+          <div class="fn-input-wrap">
+            <input class="fn-input" id="diffFnInput" type="text" placeholder="e.g. x^2" spellcheck="false">
+            <button class="fn-input-go" id="diffFnGo">&#9658;</button>
+          </div>
+          <div class="fn-error-msg" id="diffFnError"></div>
+          <div class="fn-hint">sin, cos, tan, exp, log, sqrt &nbsp;·&nbsp; x² or x^2 &nbsp;·&nbsp; 5×x or 5x or 5*x</div>
+        </div>
+
+        <div class="ctrl-section">
+          <h3>Presets</h3>
+          <div class="func-btns" id="diffFuncBtns">
+            <button class="func-btn active" data-expr="sin(x)">sin(x)</button>
+            <button class="func-btn" data-expr="x^2">x²</button>
+            <button class="func-btn" data-expr="x^3 - 3*x">x³−3x</button>
+            <button class="func-btn" data-expr="e^x">eˣ</button>
+            <button class="func-btn" data-expr="cos(x)*x">cos(x)·x</button>
+            <button class="func-btn" data-expr="log(abs(x)+1)">ln|x|</button>
+          </div>
+        </div>
+
+        <div class="sep"></div>
+
+        <div class="ctrl-section">
+          <h3>Controls</h3>
+          <label>x position <span id="xVal">0.00</span></label>
+          <input type="range" id="xSlider" min="-3.5" max="3.5" step="0.01" value="0">
+          <label>Δx (shrink → tangent) <span id="dxVal">0.50</span></label>
+          <input type="range" id="dxSlider" min="0.02" max="2.5" step="0.02" value="0.5">
+        </div>
+
+        <div class="value-display">
+          <span class="num" id="slopeDisplay" style="color:var(--diff-color)">-</span>
+          <span class="lbl">f′(x) at point x</span>
+        </div>
+
+        <div class="insight">
+          The <strong>derivative</strong> is the instantaneous slope.
+          <span class="formula">f′(x) = lim<sub>h→0</sub> [f(x+h)−f(x)] / h</span>
+          Drag the point or shrink Δx to see the tangent form.
+        </div>
+      </div>
+    </div>
+
+    <div class="explainer">
+      <div class="card">
+        <h4>Input → Output</h4>
+        <p>For <strong>x²</strong> the derivative is <strong>2x</strong>. For <strong>sin(x)</strong> it's <strong>cos(x)</strong>. The output graph shows f′(x) at every point.</p>
+      </div>
+      <div class="card">
+        <h4>The key idea: limits</h4>
+        <p>A secant through two nearby points becomes a <strong>tangent</strong> as Δx → 0. That limiting slope is the derivative - an exact instantaneous rate of change.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="int">
+    <div class="two-col">
+      <div class="canvas-wrap">
+        <div class="canvas-label">f(x) - input function</div>
+        <canvas id="intCanvas"></canvas>
+        <div class="canvas-divider"></div>
+        <div class="canvas-label" style="color:#f9a8d4">F(x) - output (antiderivative)</div>
+        <div id="intExprOut" class="expr-display" style="color:#f9a8d4;background:rgba(249,168,212,0.07)"></div>
+        <canvas id="intOutCanvas"></canvas>
+        <div class="legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#fff"></div>f(x)</div>
+          <div class="legend-item"><div class="legend-dot" style="background:rgba(78,205,196,0.6);height:10px;border-radius:2px"></div>Rectangles</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--int-color)"></div>True area</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#f9a8d4"></div>F(x)</div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="ctrl-section">
+          <h3>Custom Function</h3>
+          <div class="fn-input-wrap">
+            <input class="fn-input" id="intFnInput" type="text" placeholder="e.g. x^2" spellcheck="false">
+            <button class="fn-input-go" id="intFnGo">&#9658;</button>
+          </div>
+          <div class="fn-error-msg" id="intFnError"></div>
+          <div class="fn-hint">sin, cos, tan, exp, log, sqrt &nbsp;·&nbsp; x² or x^2 &nbsp;·&nbsp; 5×x or 5x or 5*x</div>
+        </div>
+
+        <div class="ctrl-section">
+          <h3>Presets</h3>
+          <div class="func-btns" id="intFuncBtns">
+            <button class="func-btn active" data-expr="sin(x)+1">sin(x)+1</button>
+            <button class="func-btn" data-expr="x^2">x²</button>
+            <button class="func-btn" data-expr="x^3/16+0.5">x³/16+½</button>
+            <button class="func-btn" data-expr="exp(-x^2)">e^(−x²)</button>
+            <button class="func-btn" data-expr="sqrt(x)">√x</button>
+            <button class="func-btn" data-expr="cos(x/2)+1">cos(x/2)+1</button>
+          </div>
+        </div>
+
+        <div class="sep"></div>
+
+        <div class="ctrl-section">
+          <h3>Riemann Sum</h3>
+          <label>Rectangles n <span id="nVal">8</span></label>
+          <input type="range" id="nSlider" min="1" max="120" step="1" value="8">
+          <label>Upper bound b <span id="bVal">3.00</span></label>
+          <input type="range" id="bSlider" min="0.5" max="5" step="0.1" value="3">
+        </div>
+
+        <div class="value-display">
+          <span class="num" id="areaDisplay" style="color:var(--int-color)">-</span>
+          <span class="lbl">∫ f(x) dx - exact area</span>
+        </div>
+
+        <div class="insight int">
+          The <strong>integral</strong> is accumulated area.
+          <span class="formula">∫ f(x) dx = lim<sub>n→∞</sub> Σ f(xᵢ) Δx</span>
+          The output graph shows F(x) = ∫₀ˣ f(t) dt.
+        </div>
+      </div>
+    </div>
+
+    <div class="explainer">
+      <div class="card int">
+        <h4>Input → Output</h4>
+        <p>For <strong>x²</strong> the antiderivative is <strong>x³/3 + C</strong>. For <strong>sin(x)+1</strong> it's <strong>−cos(x) + x + C</strong>.</p>
+      </div>
+      <div class="card int">
+        <h4>Riemann's insight</h4>
+        <p>Fill the area with thin rectangles of width Δx. As n increases, the sum <strong>converges to the exact integral</strong>.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
