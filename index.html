@@ -21,20 +21,7 @@
 
   <div class="section active" id="diff">
     <div class="two-col">
-      <div class="canvas-wrap">
-        <div class="canvas-label">f(x) - input function</div>
-        <canvas id="diffCanvas"></canvas>
-        <div class="canvas-divider"></div>
-        <div class="canvas-label" style="color:var(--deriv-color)">f′(x) - output (derivative)</div>
-        <div id="diffExprOut" class="expr-display" style="color:#fafafb;background:rgba(167,139,250,0.07)"></div>
-        <canvas id="diffOutCanvas"></canvas>
-        <div class="legend">
-          <div class="legend-item"><div class="legend-dot" style="background:#fff"></div>f(x)</div>
-          <div class="legend-item"><div class="legend-dot" style="background:var(--diff-color)"></div>Tangent</div>
-          <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>Secant</div>
-          <div class="legend-item"><div class="legend-dot" style="background:#a78bfa"></div>f′(x)</div>
-        </div>
-      </div>
+      
 
       <div class="controls">
         <div class="ctrl-section">
@@ -78,6 +65,20 @@
           The <strong>derivative</strong> is the instantaneous slope.
           <span class="formula">f′(x) = lim<sub>h→0</sub> [f(x+h)−f(x)] / h</span>
           Drag the point or shrink Δx to see the tangent form.
+        </div>
+      </div>
+      <div class="canvas-wrap">
+        <div class="canvas-label">f(x) - input function</div>
+        <canvas id="diffCanvas"></canvas>
+        <div class="canvas-divider"></div>
+        <div class="canvas-label" style="color:var(--deriv-color)">f′(x) - output (derivative)</div>
+        <div id="diffExprOut" class="expr-display" style="color:#fafafb;background:rgba(167,139,250,0.07)"></div>
+        <canvas id="diffOutCanvas"></canvas>
+        <div class="legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#fff"></div>f(x)</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--diff-color)"></div>Tangent</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>Secant</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#a78bfa"></div>f′(x)</div>
         </div>
       </div>
     </div>
