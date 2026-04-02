@@ -97,20 +97,7 @@
 
   <div class="section" id="int">
     <div class="two-col">
-      <div class="canvas-wrap">
-        <div class="canvas-label">f(x) - input function</div>
-        <canvas id="intCanvas"></canvas>
-        <div class="canvas-divider"></div>
-        <div class="canvas-label" style="color:#f9a8d4">F(x) - output (antiderivative)</div>
-        <div id="intExprOut" class="expr-display" style="color:#f9a8d4;background:rgba(249,168,212,0.07)"></div>
-        <canvas id="intOutCanvas"></canvas>
-        <div class="legend">
-          <div class="legend-item"><div class="legend-dot" style="background:#fff"></div>f(x)</div>
-          <div class="legend-item"><div class="legend-dot" style="background:rgba(78,205,196,0.6);height:10px;border-radius:2px"></div>Rectangles</div>
-          <div class="legend-item"><div class="legend-dot" style="background:var(--int-color)"></div>True area</div>
-          <div class="legend-item"><div class="legend-dot" style="background:#f9a8d4"></div>F(x)</div>
-        </div>
-      </div>
+      
 
       <div class="controls">
         <div class="ctrl-section">
@@ -154,6 +141,20 @@
           The <strong>integral</strong> is accumulated area.
           <span class="formula">∫ f(x) dx = lim<sub>n→∞</sub> Σ f(xᵢ) Δx</span>
           The output graph shows F(x) = ∫₀ˣ f(t) dt.
+        </div>
+      </div>
+      <div class="canvas-wrap">
+        <div class="canvas-label">f(x) - input function</div>
+        <canvas id="intCanvas"></canvas>
+        <div class="canvas-divider"></div>
+        <div class="canvas-label" style="color:#f9a8d4">F(x) - output (antiderivative)</div>
+        <div id="intExprOut" class="expr-display" style="color:#f9a8d4;background:rgba(249,168,212,0.07)"></div>
+        <canvas id="intOutCanvas"></canvas>
+        <div class="legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#fff"></div>f(x)</div>
+          <div class="legend-item"><div class="legend-dot" style="background:rgba(78,205,196,0.6);height:10px;border-radius:2px"></div>Rectangles</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--int-color)"></div>True area</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#f9a8d4"></div>F(x)</div>
         </div>
       </div>
     </div>
